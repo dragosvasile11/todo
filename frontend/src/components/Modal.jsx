@@ -23,8 +23,8 @@ const Modal = ({ title, isModal, setIsModal, handleTask, formData, setFormData, 
     const onKeyPress = (event) => {
         const keyCode = event.which ? event.which : event.keyCode;
         const isValidKey =
-            (keyCode >= 48 && keyCode <= 57) || // 0-9
-            (keyCode >= 96 && keyCode <= 105); // numpad 0-9
+            (keyCode >= 48 && keyCode <= 57) ||
+            (keyCode >= 96 && keyCode <= 105);
         if (!isValidKey) {
             event.preventDefault();
         }
@@ -63,9 +63,9 @@ const Modal = ({ title, isModal, setIsModal, handleTask, formData, setFormData, 
                                     <div className='mb-3'>
                                         <select className="form-select" name="type" onChange={onChangeInput}>
                                             <option value="" disabled selected hidden>Select type</option>
-                                            <option value="Home">Home</option>
-                                            <option value="Hobby">Hobby</option>
-                                            <option value="Work">Work</option>
+                                            <option value="HOME">HOME</option>
+                                            <option value="HOBBY">HOBBY</option>
+                                            <option value="WORK">WORK</option>
                                         </select>
                                     </div>
                                     <div className='mb-3'>
@@ -88,7 +88,7 @@ const Modal = ({ title, isModal, setIsModal, handleTask, formData, setFormData, 
                                     label={timeLabel}
                                     type="number"
                                     min="0"
-                                    onKeyPress={onKeyPress}
+                                    onKeyUp={onKeyPress}
                                 />
                             </div>
                         </form>

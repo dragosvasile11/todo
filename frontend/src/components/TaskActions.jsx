@@ -10,7 +10,7 @@ const TaskActions = ({task, handleDeleteTask}) => {
                         fas
                         icon="clipboard-list"
                         className="me-3"
-                        color={task.type === "Home" ? 'info' : task.type === "Hobby" ? 'warning' : 'danger'}
+                        color={task.type === "HOME" ? 'info' : task.type === "HOBBY" ? 'warning' : 'danger'}
                     />
                 </MDBTooltip>
                 <MDBTooltip tag="a" wrapperProps={{ href: "#!" }} title="Delete task">

@@ -9,7 +9,10 @@ const AddTaskButton = ({setIsModal, emptyForm, setFormData}) => {
                     <MDBBtn onClick={() => {
                         setIsModal(true);
                         setFormData(emptyForm);
-                    }}>Add task</MDBBtn>
+                        }}
+                    >
+                        Add task
+                    </MDBBtn>
                 </div>
             </div>
         </div>

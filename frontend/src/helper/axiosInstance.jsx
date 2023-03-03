@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
     response => response,
     error => {
-        const { config, response } = error;
+        const {config, response} = error;
 
         if (response && response.status === 400) {
             if (response.data.errors) {
@@ -27,7 +27,6 @@ axiosInstance.interceptors.response.use(
             } else {
                 toastr.error(response.data, "");
             }
-
         } else if (response && response.status === 404) {
             toastr.error(error.response.data);
         } else if (!config.isRetry && response && response.status >= 500) {
