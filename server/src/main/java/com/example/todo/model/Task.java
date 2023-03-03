@@ -26,28 +26,13 @@ public class Task {
     @Column(updatable = false)
     private Long id;
 
-    @Column
     private String name;
-
-    @Column
     private Type type;
-
-    @Column
     private LocalDate creationDate;
-
-    @Column
     private LocalDate deadlineDate;
-
-    @Column
     private Long estimatedTime;
-
-    @Column
     private Boolean isFinal;
-
-    @Column
     private Long workingTimeToFinish;
-
-    @Column
     private LocalDate finishDate;
 
 }

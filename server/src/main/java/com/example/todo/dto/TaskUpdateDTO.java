@@ -1,5 +1,6 @@
 package com.example.todo.dto;
 
+import com.example.todo.config.AppConstants;
 import com.example.todo.model.Type;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -19,35 +20,35 @@ import java.time.LocalDate;
 @Setter
 public class TaskUpdateDTO {
 
-    @NotNull(message = "Title is required")
-    @NotBlank(message = "Title is required")
-    @Size(min = 3, max = 50, message = "Title must be between 3 and 50 characters")
+    @NotNull(message = AppConstants.TITLE_REQUIRED)
+    @NotBlank(message = AppConstants.TITLE_REQUIRED)
+    @Size(min = 3, max = 50, message = AppConstants.TITLE_SIZE)
     private String name;
 
-    @NotNull(message = "Type must not be null")
+    @NotNull(message = AppConstants.TYPE_NOT_NULL)
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @NotNull(message = "Creation date is required")
-    @PastOrPresent(message = "Creation date must be in the past or present")
+    @NotNull(message = AppConstants.CREATION_DATE_REQUIRED)
+    @PastOrPresent(message = AppConstants.CREATION_DATE_PAST_OR_PRESENT)
     private LocalDate creationDate;
 
-    @NotNull(message = "Deadline date is required")
-    @FutureOrPresent(message = "Deadline date must be in the future or present")
+    @NotNull(message = AppConstants.DEADLINE_REQUIRED)
+    @FutureOrPresent(message = AppConstants.DEADLINE_FUTURE_OR_PRESENT)
     private LocalDate deadlineDate;
 
-    @NotNull(message = "Estimated time is required")
-    @PositiveOrZero(message = "Estimated time can't be negative")
+    @NotNull(message = AppConstants.ESTIMATED_TIME_REQUIRED)
+    @PositiveOrZero(message = AppConstants.ESTIMATED_TIME_POSITIVE_OR_ZERO)
     private Long estimatedTime;
 
-    @NotNull(message = "Is Final is required")
+    @NotNull(message = AppConstants.IS_FINAL_REQUIRED)
     private Boolean isFinal;
 
-    @NotNull(message = "Working time to finish is required")
-    @PositiveOrZero(message = "Working time to finish can't be negative")
+    @NotNull(message = AppConstants.WORKING_TIME_REQUIRED)
+    @PositiveOrZero(message = AppConstants.WORKING_TIME_POSITIVE_OR_ZERO)
     private Long workingTimeToFinish;
 
-    @NotNull(message = "Creation date is required")
+    @NotNull(message = AppConstants.FINISH_DATE_REQUIRED)
     private LocalDate finishDate;
 
 }

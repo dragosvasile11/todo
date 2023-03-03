@@ -46,16 +46,7 @@ public class TaskService {
 
     public ResponseEntity<?> createTask(TaskDTO taskDTO) {
         try {
-            Task task = new Task();
-            task.setName(taskDTO.getName());
-            task.setType(taskDTO.getType());
-            task.setDeadlineDate(taskDTO.getDeadlineDate());
-            task.setEstimatedTime(taskDTO.getEstimatedTime());
-
-            validateTask(task);
-
-            task.setCreationDate(LocalDate.now());
-            task.setIsFinal(false);
+            Task task = mapTaskDTOToTask(taskDTO);
             taskRepository.save(task);
 
             log.info("Task created successfully with ID {}", task.getId());
@@ -75,12 +66,8 @@ public class TaskService {
         if (taskToUpdate.getIsFinal()) return ResponseEntity.badRequest().build();
 
         try {
-            taskToUpdate.setIsFinal(taskUpdateDTO.getIsFinal());
-            taskToUpdate.setWorkingTimeToFinish(taskUpdateDTO.getWorkingTimeToFinish());
-            taskToUpdate.setFinishDate(taskUpdateDTO.getFinishDate());
-
+            finishTask(taskUpdateDTO, taskToUpdate);
             validateTask(taskToUpdate);
-
             taskRepository.save(taskToUpdate);
 
             log.info("Task updated successfully with ID {}", taskToUpdate.getId());
@@ -101,6 +88,26 @@ public class TaskService {
         taskRepository.delete(taskToDelete);
         log.info("Task with ID {} deleted successfully.", id);
         return ResponseEntity.noContent().build();
+    }
+
+    private void finishTask(TaskUpdateDTO taskUpdateDTO, Task taskToUpdate) {
+        taskToUpdate.setIsFinal(taskUpdateDTO.getIsFinal());
+        taskToUpdate.setWorkingTimeToFinish(taskUpdateDTO.getWorkingTimeToFinish());
+        taskToUpdate.setFinishDate(taskUpdateDTO.getFinishDate());
+    }
+
+    private Task mapTaskDTOToTask(TaskDTO taskDTO) {
+        Task task = new Task();
+        task.setName(taskDTO.getName());
+        task.setType(taskDTO.getType());
+        task.setDeadlineDate(taskDTO.getDeadlineDate());
+        task.setEstimatedTime(taskDTO.getEstimatedTime());
+
+        validateTask(task);
+
+        task.setCreationDate(LocalDate.now());
+        task.setIsFinal(false);
+        return task;
     }
 
     private void validateTask(Task task) {

@@ -1,5 +1,6 @@
 package com.example.todo.dto;
 
+import com.example.todo.config.AppConstants;
 import com.example.todo.model.Type;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -17,21 +18,21 @@ import java.time.LocalDate;
 @Setter
 public class TaskDTO {
 
-    @NotNull(message = "Title is required")
-    @NotBlank(message = "Title is required")
-    @Size(min = 3, max = 50, message = "Title must be between 3 and 50 characters")
+    @NotNull(message = AppConstants.TITLE_REQUIRED)
+    @NotBlank(message = AppConstants.TITLE_REQUIRED)
+    @Size(min = 3, max = 50, message = AppConstants.TITLE_SIZE)
     private String name;
 
-    @NotNull(message = "Type must not be null")
+    @NotNull(message = AppConstants.TYPE_NOT_NULL)
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @NotNull(message = "Deadline date is required")
-    @FutureOrPresent(message = "Deadline date must be in the future or present")
+    @NotNull(message = AppConstants.DEADLINE_REQUIRED)
+    @FutureOrPresent(message = AppConstants.DEADLINE_FUTURE_OR_PRESENT)
     private LocalDate deadlineDate;
 
-    @NotNull(message = "Estimated time is required")
-    @PositiveOrZero(message = "Estimated time can't be negative")
+    @NotNull(message = AppConstants.ESTIMATED_TIME_REQUIRED)
+    @PositiveOrZero(message = AppConstants.ESTIMATED_TIME_POSITIVE_OR_ZERO)
     private Long estimatedTime;
 
 }

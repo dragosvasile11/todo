@@ -29,12 +29,10 @@ public class TaskController {
 
     private final TaskService taskService;
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
         log.info("Retrive task for taskId: {}", id);
         return taskService.getTaskById(id);
-
     }
 
     @GetMapping
