@@ -2,13 +2,13 @@ package com.example.todo.service;
 
 import com.example.todo.dto.TaskDTO;
 import com.example.todo.dto.TaskUpdateDTO;
+import com.example.todo.exception.TaskException;
 import com.example.todo.model.Task;
 import com.example.todo.repository.TaskRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
-import jakarta.validation.executable.ValidateOnExecution;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -22,7 +22,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
-@ValidateOnExecution
 @RequiredArgsConstructor
 @Transactional
 @Service
@@ -63,7 +62,9 @@ public class TaskService {
     public ResponseEntity<?> updateTask(Long id, TaskUpdateDTO taskUpdateDTO) {
         Task taskToUpdate = taskRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Task not found with id: " + id));
-        if (taskToUpdate.getIsFinal()) return ResponseEntity.badRequest().build();
+        if (taskToUpdate.getIsFinal())
+            throw new TaskException("Task with ID " + id + " cannot be updated because it is already finished.", HttpStatus.BAD_REQUEST);
+
 
         try {
             finishTask(taskUpdateDTO, taskToUpdate);
@@ -71,7 +72,7 @@ public class TaskService {
             taskRepository.save(taskToUpdate);
 
             log.info("Task updated successfully with ID {}", taskToUpdate.getId());
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(taskToUpdate);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(taskToUpdate); // 200
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception ex) {

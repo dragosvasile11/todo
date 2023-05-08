@@ -2,6 +2,7 @@ package com.example.todo.advice;
 
 import com.example.todo.dto.ErrorDTO;
 import com.example.todo.dto.ErrorDetailDTO;
+import com.example.todo.exception.TaskException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,5 +35,13 @@ public class GlobalExceptionHandler {
         ErrorDTO errorDTO = new ErrorDTO(HttpStatus.BAD_REQUEST.value(), "Validation failed", errorDetails);
         return ResponseEntity.badRequest().body(errorDTO);
     }
+
+    @ExceptionHandler(TaskException.class)
+    public ResponseEntity<String> handleTaskException(TaskException ex) {
+        log.error("Task exception: {}", ex.getMessage());
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    //exception
 
 }

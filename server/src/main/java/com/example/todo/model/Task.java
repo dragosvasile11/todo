@@ -26,6 +26,7 @@ public class Task {
     @Column(updatable = false)
     private Long id;
 
+    @Column(unique = true)
     private String name;
     private Type type;
     private LocalDate creationDate;
