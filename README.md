@@ -31,4 +31,4 @@
 4. Navigate to the server directory and run ./mvnw spring-boot:run to start the back-end server.
 5. Open a new terminal window and navigate to the client directory.
 6. Run npm start or npx vite to start the front-end server.
-7. Open your browser and navigate to http://localhost:3000 to access the app.
+7. Open your browser and navigate to http://localhost:5173 to access the app.
