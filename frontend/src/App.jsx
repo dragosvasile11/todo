@@ -31,7 +31,7 @@ export default function App() {
     const [sortOrder, setSortOrder] = useState('asc');
     const [formData, setFormData] = useState(emptyForm);
 
-    const handleSortToggle = () => {
+    const handleSortToggle = () => { // setSortOrder
         setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     };
 
@@ -39,7 +39,7 @@ export default function App() {
     const title = sortOrder === 'desc' ? 'Sort by date Ascending' : 'Sort by date Descending';
 
     function sortTasks() {
-        const sortedTasks = tasks.slice().sort((task1, task2) => {
+        const sortedTasks = tasks.slice().sort((task1, task2) => { // array destruct
             const date1 = new Date(task1.deadlineDate).getTime();
             const date2 = new Date(task2.deadlineDate).getTime();
 
@@ -69,7 +69,7 @@ export default function App() {
     async function handleAddTask(formData) {
         try {
             await addTask(formData);
-            fetchData()
+            await fetchData()
         } catch (error) {
             console.log(error);
         }
@@ -79,7 +79,7 @@ export default function App() {
     async function handleDeleteTask(taskId) {
         try {
             await deleteTask(taskId);
-            fetchData()
+            await fetchData()
         } catch (error) {
             console.log(error);
         }
@@ -94,7 +94,7 @@ export default function App() {
         }
         try {
             await updateTask(updatedTask);
-            fetchData()
+            await fetchData()
             setIsFinishedModal(false)
         } catch (error) {
             console.log(error);
@@ -102,12 +102,13 @@ export default function App() {
     }
 
 
+
     return (
         <MDBContainer className="py-5" >
             {isModal && (
                 <Modal
                     title={'Add task'}
-                    isModal={isModal}
+                    isModal={isModal} // isVisible
                     setIsModal={setIsModal}
                     handleTask={handleAddTask}
                     formData={formData}
@@ -143,6 +144,7 @@ export default function App() {
                                         setIsFinishedModal={setIsFinishedModal}
                                         setTaskToUpdate={setTaskToUpdate}
                                         setWorkingTime={setWorkingTime}
+                                        key={task.id}
                                     />
                                 )
                             })}

@@ -58,6 +58,7 @@ const Modal = ({ title, isModal, setIsModal, handleTask, formData, setFormData, 
                                             onChange={onChangeInput}
                                             labelClass='col-form-label'
                                             label='Name'
+                                            autoComplete="off"
                                         />
                                     </div>
                                     <div className='mb-3'>
@@ -89,6 +90,7 @@ const Modal = ({ title, isModal, setIsModal, handleTask, formData, setFormData, 
                                     type="number"
                                     min="0"
                                     onKeyUp={onKeyPress}
+                                    autoComplete="off"
                                 />
                             </div>
                         </form>
